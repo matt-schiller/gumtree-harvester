@@ -14,6 +14,13 @@ router.get('/', function(req, res) {
     });
 });
 
+// Get saved
+router.get('/saved', function(req, res) {
+    var ads = db.Ad.find({}).sort({createdAt: -1}).exec(function(err, data){
+        res.render('saved', { ads: data });
+    });
+});
+
 // Get individual page
 router.get('/ad/:id', function(req, res) {
     var ads = db.Ad.findOne({gumtree_id: req.params.id}).populate('comments').exec(function(err, data){
